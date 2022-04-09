@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import * as firebaseApp from "../firebase/ConfigFirebase";
-import { async } from "@firebase/util";
 
 export const GeneralAuthContext = createContext();
 
@@ -35,9 +34,9 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginWithWmail = async (email, password) => {
+  const loginWithEmail = async (email, password) => {
     try {
-      const nerUset = await signInWithEmailAndPassword(
+      const newUserLogin = await signInWithEmailAndPassword(
         firebaseApp.auth,
         email,
         password
@@ -46,14 +45,14 @@ const AuthProvider = ({ children }) => {
       console.log(error);
     }
   };
+
   const data = {
     signUpwithEmailAndPassword: signUpwithEmailAndPassword,
     user: user,
     logOut: logOut,
-    loginWithWmail: loginWithWmail,
+    loginWithEmail: loginWithEmail,
   };
 
-  console.log(user);
   return (
     <GeneralAuthContext.Provider value={data}>
       {children}

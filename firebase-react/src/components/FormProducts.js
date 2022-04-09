@@ -1,33 +1,32 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { FirestoreContext } from "../context/GeneralFireStore";
-
 function FormProducts() {
   const { addProduct } = useContext(FirestoreContext);
-  const [newProduct, setNewProduct] = useState({
+  const [newProduct, setNewProduc] = useState({
     name: "",
     price: "",
-    image: "",
   });
+  const [newImage, setNewImage] = useState("");
   return (
-    <div>
+    <>
       <input
-        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+        onChange={(e) => setNewProduc({ ...newProduct, name: e.target.value })}
         placeholder="name"
       />
       <input
-        onChange={(e) =>
-          setNewProduct({ ...newProduct, price: e.target.value })
-        }
+        onChange={(e) => setNewProduc({ ...newProduct, price: e.target.value })}
         placeholder="price"
       />
       <input
-        onChange={(e) =>
-          setNewProduct({ ...newProduct, image: e.target.value })
-        }
+        type="file"
+        onChange={(e) => setNewImage(e.target.files[0])}
         placeholder="image"
       />
-      <button onClick={() => addProduct(newProduct)}>Add Product</button>
-    </div>
+
+      <button onClick={() => addProduct(newProduct, newImage)}>
+        Add products
+      </button>
+    </>
   );
 }
 
